@@ -1,0 +1,38 @@
+//const Noble = require("noble");
+const BeaconScanner = require("node-beacon-scanner");
+const Gpio = require('onoff').Gpio;
+
+const redLed = new Gpio(9, 'out');
+const yellowLed = new Gpio(10, 'out')
+const greenLed = new Gpio(11, 'out')
+
+var scanner = new BeaconScanner();
+
+scanner.onadvertisement = (advertisement) => {
+    var beacon = advertisement["iBeacon"];
+    if (beacon){
+    	beacon.rssi = advertisement["rssi"];
+    	//console.log(JSON.stringify(beacon, null, "    "))
+    	//console.log(beacon.rssi)
+
+	if (beacon.rssi >= -50){
+	  redLed.write(1)
+	  greenLed.write(0)
+	  yellowLed.write(0)
+	} else if (beacon.rssi <= -51 && beacon.rssi >= -75) {
+	  yellowLed.write(1)
+	  redLed.write(0)
+	  greenLed.write(0)
+	} else {
+	  greenLed.write(1)
+	  redLed.write(0)
+	  yellowLed.write(0)
+	}
+    }
+};
+
+scanner.startScan().then(() => {
+    console.log("Scanning for BLE devices...")  ;
+}).catch((error) => {
+    console.error(error);
+});
