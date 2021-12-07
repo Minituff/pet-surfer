@@ -1,0 +1,24 @@
+# Place this file at /etc/systemd/system
+#
+# Helpful commands:
+# sudo systemctl enable noble
+# sudo systemctl start  noble
+# sudo systemctl stop  noble
+# sudo systemctl disable noble
+
+[Unit]
+Description="TuffNoble"
+
+[Service]
+ExecStart=node /home/pi/Documents/pet-surfer/noble/app.js
+WorkingDirectory=/home/pi/Documents/pet-surfer/noble
+User=root  # Probably need a custom user
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=TuffNoble
+# Environment=NODE_ENV=production PORT=8080
+
+[Install]
+WantedBy=multi-user.target
