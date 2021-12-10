@@ -19,27 +19,17 @@
 # https://www.twilio.com/docs/sms/quickstart/python
 
 
+# import tensorflow as tf
+import argparse
 # Import packages
 import os
-import cv2
-import numpy as np
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-import tensorflow as tf
-import argparse
 import sys
 
-# Set up Twilio
-from twilio.rest import Client
-
-# Twilio SID, authentication token, my phone number, and the Twilio phone number
-# are stored as environment variables on my Pi so people can't see them
-account_sid = os.environ['TWILIO_ACCOUNT_SID']
-auth_token = os.environ['TWILIO_AUTH_TOKEN']
-my_number = os.environ['MY_DIGITS']
-twilio_number = os.environ['TWILIO_DIGITS']
-
-client = Client(account_sid,auth_token)
+import cv2
+import numpy as np
+import tflite_runtime.interpreter as tflite
+from picamera import PiCamera
+from picamera.array import PiRGBArray
 
 # Set up camera constants
 IM_WIDTH = 1280
@@ -90,15 +80,15 @@ categories = label_map_util.convert_label_map_to_categories(label_map, max_num_c
 category_index = label_map_util.create_category_index(categories)
 
 # Load the Tensorflow model into memory.
-detection_graph = tf.Graph()
+detection_graph = tflite.Graph()
 with detection_graph.as_default():
-    od_graph_def = tf.GraphDef()
-    with tf.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
+    od_graph_def = tflite.GraphDef()
+    with tflite.gfile.GFile(PATH_TO_CKPT, 'rb') as fid:
         serialized_graph = fid.read()
         od_graph_def.ParseFromString(serialized_graph)
-        tf.import_graph_def(od_graph_def, name='')
+        tflite.import_graph_def(od_graph_def, name='')
 
-    sess = tf.Session(graph=detection_graph)
+    sess = tflite.Session(graph=detection_graph)
 
 
 # Define input and output tensors (i.e. data) for the object detection classifier
@@ -201,11 +191,7 @@ def pet_detector(frame):
     # and send a text to the phone.
     if inside_counter > 10:
         detected_inside = True
-        message = client.messages.create(
-            body = 'Your pet wants outside!',
-            from_=twilio_number,
-            to=my_number
-            )
+        print("pet wants outside")
         inside_counter = 0
         outside_counter = 0
         # Pause pet detection by setting "pause" flag
@@ -215,11 +201,7 @@ def pet_detector(frame):
     # and send a text to the phone.
     if outside_counter > 10:
         detected_outside = True
-        message = client.messages.create(
-            body = 'Your pet wants inside!',
-            from_=twilio_number,
-            to=my_number
-            )
+        print("pet wants inside")
         inside_counter = 0
         outside_counter = 0
         # Pause pet detection by setting "pause" flag
