@@ -1,0 +1,16 @@
+[Unit]
+Description="Pet Detecter Service"
+
+[Service]
+User=root
+WorkingDirectory=/home/pi/Documents/pet-surfer/playground/
+#Environment=PATH=/home/pi/.virtualenvs/playground-flql/bin
+ExecStart=/home/pi/.virtualenvs/playground-flql/bin/python /home/pi/Documents/pet-surfer/playground/detect.py --modeldir /home/pi/Documents/pet-surfer/playground/model
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=Pet-Detecter
+
+[Install]
+WantedBy=multi-user.target
