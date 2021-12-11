@@ -4,18 +4,18 @@ const BeaconScanner = require("node-beacon-scanner");
 const Gpio = require('onoff').Gpio;
 
 const redLed = new Gpio(9, 'out');
-const yellowLed = new Gpio(10, 'out')
-const greenLed = new Gpio(11, 'out')
+// const yellowLed = new Gpio(10, 'out')
+// const greenLed = new Gpio(11, 'out')
 
 function gracefulShutdown(){
   console.log("\nGracefully shutting down...");
 
   redLed.write(0);
-  yellowLed.write(0);
-  greenLed.write(0);
+  // yellowLed.write(0);
+  // greenLed.write(0);
   redLed.unexport();    // Unexport GPIO and free resources
-  yellowLed.unexport();    // Unexport GPIO and free resources
-  greenLed.unexport();    // Unexport GPIO and free resources
+  // yellowLed.unexport();    // Unexport GPIO and free resources
+  // greenLed.unexport();    // Unexport GPIO and free resources
 
   console.log("Exiting...");
 };
@@ -39,18 +39,18 @@ scanner.onadvertisement = (advertisement) => {
     	//console.log(JSON.stringify(beacon, null, "    "))
     	console.log(beacon.rssi)
 
-	if (beacon.rssi >= -50){
+	if (beacon.rssi >= -60){
 	  redLed.write(1)
-	  greenLed.write(0)
-	  yellowLed.write(0)
-	} else if (beacon.rssi <= -51 && beacon.rssi >= -75) {
-	  yellowLed.write(1)
+	  // greenLed.write(0)
+	  // yellowLed.write(0)
+	} else if (beacon.rssi <= -61 && beacon.rssi >= -85) {
+	  // yellowLed.write(1)
 	  redLed.write(0)
-	  greenLed.write(0)
+	  // greenLed.write(0)
 	} else {
-	  greenLed.write(1)
+	  // greenLed.write(1)
 	  redLed.write(0)
-	  yellowLed.write(0)
+	  // yellowLed.write(0)
 	}
     }
 };

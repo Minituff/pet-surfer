@@ -81,18 +81,12 @@ class VideoStream:
 def main():
     # Define and parse input arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument('--modeldir', help='Folder the .tflite file is located in',
-                        required=False, default='model'),
-    parser.add_argument('--graph', help='Name of the .tflite file, if different than detect.tflite',
-                        default='detect.tflite')
-    parser.add_argument('--labels', help='Name of the labelmap file, if different than labelmap.txt',
-                        default='labelmap.txt')
-    parser.add_argument('--threshold', help='Minimum confidence threshold for displaying detected objects',
-                        default=0.5)
-    parser.add_argument('--resolution', help='Desired webcam resolution in WxH. If the webcam does not support the resolution entered, errors may occur.',
-                        default='1280x720')
-    parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed up detection',
-                        action='store_true')
+    parser.add_argument('--modeldir', help='Folder the .tflite file is located in', required=False, default='model'),
+    parser.add_argument('--graph', help='Name of the .tflite file, if different than detect.tflite', default='detect.tflite')
+    parser.add_argument('--labels', help='Name of the labelmap file, if different than labelmap.txt', default='labelmap.txt')
+    parser.add_argument('--threshold', help='Minimum confidence threshold for displaying detected objects', default=0.3)
+    parser.add_argument('--resolution', help='Desired webcam resolution in WxH. If the webcam does not support the resolution entered, errors may occur.', default='1280x720')
+    parser.add_argument('--edgetpu', help='Use Coral Edge TPU Accelerator to speed up detection', action='store_true')
 
     args = parser.parse_args()
 
@@ -145,8 +139,7 @@ def main():
     # Load the Tensorflow Lite model.
     # If using Edge TPU, use special load_delegate argument
     if use_TPU:
-        interpreter = Interpreter(model_path=PATH_TO_CKPT,
-                                experimental_delegates=[load_delegate('libedgetpu.so.1.0')])
+        interpreter = Interpreter(model_path=PATH_TO_CKPT,experimental_delegates=[load_delegate('libedgetpu.so.1.0')])
         print(PATH_TO_CKPT)
     else:
         interpreter = Interpreter(model_path=PATH_TO_CKPT)
@@ -249,7 +242,7 @@ def main():
 
         pet_detected = pet_detector(boxes, classes, scores)
         print(pet_detected, detected_frames)
-        max_pet_frames = 3 # For how many frames must the pet be present
+        max_pet_frames = 2 # For how many frames must the pet be present
 
         if (pet_detected):
             if (detected_frames < max_pet_frames):

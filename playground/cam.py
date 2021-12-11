@@ -3,16 +3,17 @@
 # http://picamera.readthedocs.io/en/latest/recipes2.html#web-streaming
 
 import io
-import picamera
 import logging
 import socketserver
-from threading import Condition
 from http import server
+from threading import Condition
+
+import picamera
 
 PAGE="""\
 <html>
 <head>
-<title>Raspberry Pi - Surveillance Camera</title>
+<title>Raspberry Pi Camera</title>
 </head>
 <body>
 <center><h1>Raspberry Pi - Surveillance Camera</h1></center>
