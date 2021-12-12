@@ -19,7 +19,7 @@ def blink_num(num):
 
 while True:
     for ifaceName in interfaces():
-        if (ifaceName == "wlan0"): # eth0 for lan, wlan0 for wifi
+        if (ifaceName == "wlan0"): # eth0 for lan, wlan0 for wifi.
             address = [i['addr'] for i in ifaddresses(ifaceName).setdefault(AF_INET, [{'addr':None}] )][0]
             if (address is None):
                 greenLED.on()
