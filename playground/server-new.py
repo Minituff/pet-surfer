@@ -129,9 +129,6 @@ def detect_motion(frameCount):
     frame_rate_calc = 1
     freq = cv2.getTickFrequency()
 
-    # Initialize video stream
-    # videostream = VideoStream(resolution=(imW,imH),framerate=30).start()
-    # time.sleep(1)
 
     def pet_detector(boxes, classes, scores):
         for i in range(len(scores)):
@@ -201,7 +198,7 @@ def detect_motion(frameCount):
                     cv2.putText(frame, label, (xmin, label_ymin-7), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 0), 2) # Draw label text
 
         # Draw framerate in corner of frame
-        cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
+        cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(20,30),cv2.FONT_HERSHEY_SIMPLEX,0.75,(255,255,0),2,cv2.LINE_AA)
 
         #* YOU MUST BE AT PI DESKTOP FOR THIS TO WORK
         # All the results have been drawn on the frame, so it's time to display it.
@@ -209,7 +206,7 @@ def detect_motion(frameCount):
 
         pet_detected = pet_detector(boxes, classes, scores)
         print(pet_detected, detected_frames)
-        max_pet_frames = 2 # For how many frames must the pet be present
+        max_pet_frames = 3 # For how many frames must the pet be present
         if (pet_detected):
             if (detected_frames < max_pet_frames):
                 detected_frames += 1

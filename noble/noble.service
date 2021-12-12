@@ -2,8 +2,8 @@
 #
 # Helpful commands:
 # sudo systemctl enable noble
-# sudo systemctl start  noble
-# sudo systemctl stop  noble
+# sudo systemctl start noble
+# sudo systemctl stop noble
 # sudo systemctl disable noble
 
 [Unit]

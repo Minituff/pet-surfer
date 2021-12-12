@@ -1,3 +1,11 @@
+# Place this file at /etc/systemd/system
+#
+# Helpful commands:
+# sudo systemctl enable detect
+# sudo systemctl start detect
+# sudo systemctl stop detect
+# sudo systemctl disable detect
+
 [Unit]
 Description="Pet Detecter Service"
 

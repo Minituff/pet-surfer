@@ -1,0 +1,24 @@
+# Place this file at /etc/systemd/system
+#
+# Helpful commands:
+# sudo systemctl enable led-ip
+# sudo systemctl start led-ip
+# sudo systemctl stop led-ip
+# sudo systemctl disable led-ip
+
+[Unit]
+Description="LED-ip Service"
+
+[Service]
+User=root
+WorkingDirectory=/home/pi/Documents/pet-surfer/playground/
+#Environment=PATH=/home/pi/.virtualenvs/playground-flql/bin
+ExecStart=/home/pi/.virtualenvs/playground-flql/bin/python /home/pi/Documents/pet-surfer/playground/led-ip.py --modeldir /home/pi/Documents/pet-surfer/playground/model
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=LED-IP
+
+[Install]
+WantedBy=multi-user.target
