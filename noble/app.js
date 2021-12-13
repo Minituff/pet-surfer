@@ -1,3 +1,6 @@
+// Run 'npm' install in the 'noble' directory to install requirements
+
+
 //const Noble = require("noble");
 //const noble = require('@abandonware/noble');
 const BeaconScanner = require("node-beacon-scanner");

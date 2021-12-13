@@ -5,6 +5,8 @@
 * Use a collar mounted device which can be shocked/buzzed/noisy if the AI finds they are on the counter
 * Use bleutooth LE to detect presense which also helps with false positives
 
+To View the AI pet detection visit:
+http://<your-ip>:8000
 
 ## Useful Links
 * [Pet Detection YouTube Link](https://www.youtube.com/watch?v=gGqVNuYol6o&t=5s)
