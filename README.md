@@ -14,7 +14,8 @@ It would work like this:
 <br>
 
 ## Demo
-<img title="detect.service" src="media/detect.gif" width="320" height="250"/>
+<img title="detect.service" src="media/detect.gif" width="640" height="360"/>
+<img title="noble.service" src="media/noble.gif" width="320" height="250"/>
 <img title="led-ip.service" src="media/led-ip-demo.gif" width="250" height="250"/>
 
 
