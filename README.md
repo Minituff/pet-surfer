@@ -12,6 +12,7 @@ It would work like this:
 * Use bleutooth Low Energy beacons to detect presense which also helps with false positives
 
 <br>
+![Led-ip demo](media/led-ip-demo.gif)
 
 ## Architecture
 There are currently 3 linux services which are set to run at boot:
