@@ -54,14 +54,19 @@ There are currently 3 linux services which are set to run at boot:
 	cd /home/pi/Documents
 	git clone https://github.com/Minituff/pet-surfer.git
 	```
+
+<br>
+
 ### Install **noble.service**
 1. Install dependencies for the noble service:
 	```bash
 	sudo apt-get install node 		# Install node.js
 	cd noble
-	npm install 				# Install dependencies
-	sudo node app.js 			# Just test if the app works, if it does, quit and proceed to next step
+	npm install 					# Install dependencies
+	sudo node app.js 				# Just test if the app works, if it does, quit and proceed to next step
 	```
+	- Here you should see the 🔴**RED** light turn on if the BlueCharm is in range
+	- Quit the script (`ctrl + c`) and move on to the next step
 1. Install, enable and activate the **noble.service**:
 	```bash
 	sudo cp services/noble.service /etc/systemd/system/
@@ -69,7 +74,10 @@ There are currently 3 linux services which are set to run at boot:
 	sudo systemctl start noble
 	sudo systemctl --no-page status noble  # Ensure the status is active
 	```
-### Install **detect.service** & **led-ip.service** 
+
+<br>
+
+### Install **detect.service** & **led-ip.service** requirements
 1. Create Python Virtual Enviornment ([venv](https://docs.python.org/3/library/venv.html))
 	```bash
 	cd playground
@@ -88,12 +96,51 @@ There are currently 3 linux services which are set to run at boot:
 	```bash
 	pip install -r requirements.txt 	# This will install the reqs for both scripts
 	```
-To View the AI pet detection visit:
-http://your-pi-ip:8000
 
 <br>
 
+### Test & Install **detect.service**
+1. Ensure your venv is active and you are in the `playground` folder
+1. Test **detect.service**
+	```bash
+	python3 detect.py
+	```
+	- You should see the flask server start.
+	- To View the AI pet detection visit: **http://your-pi-ip:8000**
+	- Here you should see the 🟡**YELLOW** turn on if the AI detects a Pet.
+	- Quit the script (`ctrl + c`) and move on to the next step
+1. Install, enable and activate the **detect.service**:
+	```bash
+	sudo cp services/detect.service /etc/systemd/system/
+	sudo systemctl enable detect            
+	sudo systemctl start detect
+	sudo systemctl --no-page status detect  # Ensure the status is active
+	```
+
+<br>
+
+### Test & Install **led-ip.service**
+1. Ensure your venv is active and you are in the `playground` folder
+1. Test **led-ip.service**
+	```bash
+	python3 led-ip.py
+	```
+	- Here you should see the 🟢**GREEN** blink the PI's IP address (see above to decode)
+	- Quit the script (`ctrl + c`) and move on to the next step
+1. Install, enable and activate the **led-ip.service**:
+	```bash
+	sudo cp services/led-ip.service /etc/systemd/system/
+	sudo systemctl enable led-ip            
+	sudo systemctl start led-ip
+	sudo systemctl --no-page status led-ip  # Ensure the status is active
+	```
+
+<br>
+<br>
+<br>
+
 ## Useful Links and other tutorials
+These links and videos really helped me out:
 * [Pet Detection YouTube Link](https://www.youtube.com/watch?v=gGqVNuYol6o&t=5s)
 * [L1 Linux Guides](https://forum.level1techs.com/t/bluetooth-presence-detection-for-home-automation-the-level1-way/148516) and [YouTube Link](https://www.youtube.com/watch?v=7vm7oL4JDi8*)
 * [Monitor](https://github.com/andrewjfreyer/monitor) - MQTT trigger of detection
@@ -107,8 +154,3 @@ http://your-pi-ip:8000
 ### A somewhat working BT LE Setep
 Follow [this](https://www.thepolyglotdeveloper.com/2018/03/use-nodejs-raspberry-pi-zero-w-scan-ble-ibeacon-devices/) guide. (esure monitor is *not* running or this will break noble)
 Fix for Raspberry PI [here](https://github.com/noble/node-bluetooth-hci-socket/issues/107)
-
-
-
-## Run Node.js script as service
-Stack Overflow [instructions](https://stackoverflow.com/questions/60100830/how-should-i-start-a-node-js-script-automatically)
