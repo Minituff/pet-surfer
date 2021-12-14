@@ -1,8 +1,8 @@
 ## Main design
-This is a "shark tank" stype product designed to keep your pets from getting on your counter-tops.
+This is a "shark tank" style product designed to keep your pets from getting on your counter-tops.
 There currently are very few products that can do this with a clean user experience and high amount of customization.
 
-This repo serves as a *Proof of Concept* to demonstarte that such a product could exist.
+This repo serves as a *Proof of Concept* to demonstrate that such a product could exist.
 
 It would work like this:
 * Use a under cabinet mounted device with a camera facing the counter-tops
@@ -14,13 +14,14 @@ It would work like this:
 
 ## Architecture
 There are currently 3 linux services which are set to run at boot:
-1. **noble.service** - Uses the Node.js noble packge to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the **RED** light.
-2. **detect.service** - Uses Tensorflow Lite to detect the presence of a cat/dog. When a pet is detected for a certain amount of frames (configurable), turn on the **YELLOW** light. A Flask server is also run to view a real-time camera feed plus the AI detection. To see, go here: **http://ip-address:8000**
+1. **noble.service** - Uses the Node.js [noble package](https://github.com/noble/noble) to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the **RED** light.
+2. **detect.service** - Uses [Tensorflow Lite](https://www.tensorflow.org/lite) to detect the presence of a cat/dog. When a pet is detected for a certain amount of frames (configurable), turn on the **YELLOW** light. A [Flask](https://flask.palletsprojects.com/) server is also run to view a real-time camera feed plus the AI detection. To see, go here: **http://pi-ip-address:8000**
 3. **led-ip.service** - Runs a python scrpt to *blink* the last octet of the Pi's IP address.
 	- This is if you [pre-load the WiFi](https://raspberrypi.stackexchange.com/questions/11631/how-to-setup-multiple-wifi-networks) information on the Raspberry PI and take it to another location, you can quickly identify the IP address to view the PI Cam output. (Not morse code)
 	- Example IP address: 192.168.1.**152**
-		- 1 blink -> pause -> 5 blinks -> pause -> 2 blinks -> steady on -> *repeat*
+		- **1** blink -> pause -> **5** blinks -> pause -> **2** blinks -> steady on -> *repeat*
 	- Blinking on and off with no pauses/steady-on means the Pi has **no** IP address
+	- Three quick flashes equals a "0"
 
 ## Hardware
 - [Raspberry PI 4 (Bundle)](https://www.amazon.com/gp/product/B07TKFKKMP/)
@@ -39,7 +40,7 @@ There are currently 3 linux services which are set to run at boot:
 	- These are the ones I used, but anything greater than 16gb should work fine
 
 To View the AI pet detection visit:
-http://<your-ip>:8000
+http://your-pi-ip:8000
 
 ## Useful Links and other tutorials
 * [Pet Detection YouTube Link](https://www.youtube.com/watch?v=gGqVNuYol6o&t=5s)

@@ -11,11 +11,25 @@ greenLED = LED(11)
 
 
 def blink_num(num):
-    for int in range(0,num):
+    if num == 0:
         greenLED.on()
-        sleep(0.4)
+        sleep(0.1)
+        greenLED.off()
+        sleep(0.1)
+        greenLED.on()
+        sleep(0.1)
+        greenLED.off()
+        sleep(0.1)
+        greenLED.on()
+        sleep(0.1)
         greenLED.off()
         sleep(0.4)
+    else:
+        for int in range(0,num):
+            greenLED.on()
+            sleep(0.4)
+            greenLED.off()
+            sleep(0.4)
 
 while True:
     for ifaceName in interfaces():
