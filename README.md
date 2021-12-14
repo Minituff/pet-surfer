@@ -14,7 +14,9 @@ It would work like this:
 <br>
 
 ## Demo
-<img src="media/led-ip-demo.gif" width="250" height="250"/>
+<img title="detect.service" src="media/detect.gif" width="320" height="250"/>
+<img title="led-ip.service" src="media/led-ip-demo.gif" width="250" height="250"/>
+
 
 ## Architecture
 There are currently 3 linux services which are set to run at boot:
