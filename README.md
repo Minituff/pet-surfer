@@ -13,15 +13,24 @@ It would work like this:
 
 <br>
 
-## Demo
+## Demos
+### - **detect.service** 🟡
+
 <img title="detect.service" src="media/detect.gif" width="640" height="360"/>
+
+### - **noble.service** 🔴
 <img title="noble.service" src="media/noble.gif" width="320" height="250"/>
+
+
+### - **led-ip.service** 🟢
+
 <img title="led-ip.service" src="media/led-ip-demo.gif" width="250" height="250"/>
 
+<br>
 
 ## Architecture
 There are currently 3 linux services which are set to run at boot:
-1. **noble.service** - Uses the Node.js [noble package](https://github.com/noble/noble) to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the 🔴**RED** light.
+1. **detect.service**  - Uses the Node.js [noble package](https://github.com/noble/noble) to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the 🔴**RED** light.
 2. **detect.service** - Uses [Tensorflow Lite](https://www.tensorflow.org/lite) to detect the presence of a cat/dog. When a pet is detected for a certain amount of frames (configurable), turn on the 🟡**YELLOW** light. A [Flask](https://flask.palletsprojects.com/) server is also run to view a real-time camera feed plus the AI detection. To see, go here: **http://pi-ip-address:8000**
 3. **led-ip.service** - Runs a python scrpt to *blink* the last octet of the Pi's IP address with the 🟢**GREEN** light.
 	- This is if you [pre-load the WiFi](https://raspberrypi.stackexchange.com/questions/11631/how-to-setup-multiple-wifi-networks) information on the Raspberry PI and take it to another location, you can quickly identify the IP address to view the PI Cam output. (Not morse code)
