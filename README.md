@@ -17,7 +17,7 @@ It would work like this:
 There are currently 3 linux services which are set to run at boot:
 1. **noble.service** - Uses the Node.js [noble package](https://github.com/noble/noble) to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the 🔴**RED** light.
 2. **detect.service** - Uses [Tensorflow Lite](https://www.tensorflow.org/lite) to detect the presence of a cat/dog. When a pet is detected for a certain amount of frames (configurable), turn on the 🟡**YELLOW** light. A [Flask](https://flask.palletsprojects.com/) server is also run to view a real-time camera feed plus the AI detection. To see, go here: **http://pi-ip-address:8000**
-3. **led-ip.service** - Runs a python scrpt to *blink* the last octet of the Pi's IP address with the 🟢**green** light.
+3. **led-ip.service** - Runs a python scrpt to *blink* the last octet of the Pi's IP address with the 🟢**GREEN** light.
 	- This is if you [pre-load the WiFi](https://raspberrypi.stackexchange.com/questions/11631/how-to-setup-multiple-wifi-networks) information on the Raspberry PI and take it to another location, you can quickly identify the IP address to view the PI Cam output. (Not morse code)
 	- Example IP address: 192.168.1.**152**
 		- **1** blink -> pause -> **5** blinks -> pause -> **2** blinks -> steady on -> *repeat*
@@ -52,12 +52,12 @@ There are currently 3 linux services which are set to run at boot:
 - Clone this Repo to your `Documents` folder
 	```bash
 	cd /home/pi/Documents
-	git clone <Repo IP>
+	git clone https://github.com/Minituff/pet-surfer.git
 	```
 ### Install **noble.service**
 1. Install dependencies for the noble service:
 	```bash
-	sudo apt-get install node 	# Install node.js
+	sudo apt-get install node 		# Install node.js
 	cd noble
 	npm install 				# Install dependencies
 	sudo node app.js 			# Just test if the app works, if it does, quit and proceed to next step
