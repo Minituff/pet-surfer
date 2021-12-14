@@ -19,12 +19,12 @@ It would work like this:
 <img title="detect.service" src="media/detect.gif" width="640" height="360"/>
 
 ### - **noble.service** 🔴
-<img title="noble.service" src="media/noble.gif" width="320" height="250"/>
+<img title="noble.service" src="media/noble.gif" width="640" height="480"/>
 
 
 ### - **led-ip.service** 🟢
 
-<img title="led-ip.service" src="media/led-ip-demo.gif" width="250" height="250"/>
+<img title="led-ip.service" src="media/led-ip-demo.gif" width="400" height="400"/>
 
 <br>
 
