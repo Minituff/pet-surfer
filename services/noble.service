@@ -12,7 +12,7 @@ Description="TuffNoble"
 [Service]
 ExecStart=node /home/pi/Documents/pet-surfer/noble/app.js
 WorkingDirectory=/home/pi/Documents/pet-surfer/noble
-User=root  # Probably need a custom user
+User=root
 Restart=always
 RestartSec=10
 StandardOutput=syslog
