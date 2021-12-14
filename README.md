@@ -11,17 +11,20 @@ It would work like this:
 * Use a collar mounted device which can be shocked/buzzed/noisy if the AI finds they are on the counter
 * Use bleutooth Low Energy beacons to detect presense which also helps with false positives
 
+<br>
 
 ## Architecture
 There are currently 3 linux services which are set to run at boot:
-1. **noble.service** - Uses the Node.js [noble package](https://github.com/noble/noble) to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the **RED** light.
-2. **detect.service** - Uses [Tensorflow Lite](https://www.tensorflow.org/lite) to detect the presence of a cat/dog. When a pet is detected for a certain amount of frames (configurable), turn on the **YELLOW** light. A [Flask](https://flask.palletsprojects.com/) server is also run to view a real-time camera feed plus the AI detection. To see, go here: **http://pi-ip-address:8000**
-3. **led-ip.service** - Runs a python scrpt to *blink* the last octet of the Pi's IP address.
+1. **noble.service** - Uses the Node.js [noble package](https://github.com/noble/noble) to detect Bluetooth LE beacons. When a beacon is within a certain distance (configurable), turn on the 🔴**RED** light.
+2. **detect.service** - Uses [Tensorflow Lite](https://www.tensorflow.org/lite) to detect the presence of a cat/dog. When a pet is detected for a certain amount of frames (configurable), turn on the 🟡**YELLOW** light. A [Flask](https://flask.palletsprojects.com/) server is also run to view a real-time camera feed plus the AI detection. To see, go here: **http://pi-ip-address:8000**
+3. **led-ip.service** - Runs a python scrpt to *blink* the last octet of the Pi's IP address with the 🟢**green** light.
 	- This is if you [pre-load the WiFi](https://raspberrypi.stackexchange.com/questions/11631/how-to-setup-multiple-wifi-networks) information on the Raspberry PI and take it to another location, you can quickly identify the IP address to view the PI Cam output. (Not morse code)
 	- Example IP address: 192.168.1.**152**
 		- **1** blink -> pause -> **5** blinks -> pause -> **2** blinks -> steady on -> *repeat*
 	- Blinking on and off with no pauses/steady-on means the Pi has **no** IP address
 	- Three quick flashes equals a "0"
+
+<br>
 
 ## Hardware
 - [Raspberry PI 4 (Bundle)](https://www.amazon.com/gp/product/B07TKFKKMP/)
@@ -39,8 +42,56 @@ There are currently 3 linux services which are set to run at boot:
 - [Micro SD Card](https://www.amazon.com/gp/product/B07XDCZ9J3)
 	- These are the ones I used, but anything greater than 16gb should work fine
 
+<br>
+
+## Setup
+### Setup Raspberry Pi
+- Use the [Raspberry PI Imager](https://www.raspberrypi.com/software/)
+	- The version I used was: `Raspbian GNU/Linux 11 (bullseye) 32bit` which was the default at the time
+- Ensure you are using the `pi` user, unless you want to change ALL the paths
+- Clone this Repo to your `Documents` folder
+	```bash
+	cd /home/pi/Documents
+	git clone <Repo IP>
+	```
+### Install **noble.service**
+1. Install dependencies for the noble service:
+	```bash
+	sudo apt-get install node 	# Install node.js
+	cd noble
+	npm install 				# Install dependencies
+	sudo node app.js 			# Just test if the app works, if it does, quit and proceed to next step
+	```
+1. Install, enable and activate the **noble.service**:
+	```bash
+	sudo cp services/noble.service /etc/systemd/system/
+	sudo systemctl enable noble            
+	sudo systemctl start noble
+	sudo systemctl --no-page status noble  # Ensure the status is active
+	```
+### Install **detect.service** & **led-ip.service** 
+1. Create Python Virtual Enviornment ([venv](https://docs.python.org/3/library/venv.html))
+	```bash
+	cd playground
+	python3 -m venv /home/pi/.virtualenvs/playground-flql 	# playground-flql is the venv name
+	```
+	- I used [this](https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv) module for my ZSH terminal
+	- If you do not use a venv, then just change the `ExecStart` commands in each *.service* file
+1. Activate the virtual env
+	```bash
+	source /home/pi/.virtualenvs/playground-flql/bin/activate
+	```
+	- You WILL need to do this every time you SSH into your PI, unless you use the plugin mentioned above, then the venv will be activated upon cd'ing into the playground folder.
+1. Install requirements
+	- Install Tensorflow lite using this [guide](https://www.tensorflow.org/lite/guide/python#install_tensorflow_lite_for_python) 
+	- Install remaining reqs for the venv:
+	```bash
+	pip install -r requirements.txt 	# This will install the reqs for both scripts
+	```
 To View the AI pet detection visit:
 http://your-pi-ip:8000
+
+<br>
 
 ## Useful Links and other tutorials
 * [Pet Detection YouTube Link](https://www.youtube.com/watch?v=gGqVNuYol6o&t=5s)
