@@ -75,7 +75,7 @@ There are currently 3 linux services which are set to run at boot:
 ### Install **noble.service**
 1. Install dependencies for the noble service:
 	```bash
-	sudo apt-get install node 		# Install node.js
+	sudo apt-get install node 			# Install node.js
 	cd noble
 	npm install 					# Install dependencies
 	sudo node app.js 				# Just test if the app works, if it does, quit and proceed to next step
